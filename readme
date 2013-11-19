@@ -1,0 +1,4 @@
+The city of Dresden/Germany provides the allocation of there payed parking lots on the website: http://www.dresden.de/freie-parkplaetze but not as machine readable data. So here it is the scraper for that.
+
+
+If the showed chars are some kind of wrong, keep an eye on your codepage, the used charset ist unicode/utf8.
