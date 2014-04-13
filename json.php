@@ -105,7 +105,9 @@ class parking_lots_dd
 			// }
 			
 		}		
-		#var_dump($la);
+		//add last table
+		$tables[] = $larr;
+		
 		return $tables;
 	}
 	
