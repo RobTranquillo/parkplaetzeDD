@@ -29,7 +29,25 @@ class parking_lots_dd
 	
 	/*
 		every parking space, is a single table, this func put every table into an array child
-	*/
+	 */
+	private static function getStatusByImage($html){
+		$imgtostatus = array(
+			'/img/parken/p_gruen.gif' => 'many',
+			'/img/parken/p_gelb.gif' => 'few',
+			'/img/parken/p_rot.gif' => 'full',
+			'/img/parken/p_geschlossen.gif' => 'closed',
+			'/img/parken/p_blau.gif' => 'nodata',
+		);
+		$doc = new DOMDocument();
+		$doc->loadHTML($html);
+		$tags = $doc->getElementsByTagName('img');
+		$state;
+		foreach($tags as $tag){
+			$state  = $imgtostatus[$tag->getAttribute('src')];
+		}
+		return $state;
+	}
+
 	private static function extract_html2raw( $html )
 	{	
 		$table = array();
@@ -42,12 +60,11 @@ class parking_lots_dd
 				$i++; //go into the <tr>
 				$i++; //go into the <th>
 				$table['name'] = trim( strip_tags( $html[$i] ) );					
-			}
-			
-			
+			}	
 			//get the names of the parking lots
 			if( substr_count( $html[$i],'<a href=') > 0 )
 			{
+				$state = parking_lots_dd::getStatusByImage($html[$i]);
 				$name = self::german_letters( self::extract_from_html_link( $html[$i] ));
 				
 				$i++;
@@ -57,7 +74,7 @@ class parking_lots_dd
 				$i++;
 				$free = trim( strip_tags( $html[$i] ) );
 				
-				$table['lots'][] = array( 'name'=>$name, 'count'=>$count, 'free'=>$free );
+				$table['lots'][] = array( 'name'=>$name, 'count'=>$count, 'free'=>$free, 'state'=>$state );
 			}
 			
 			
