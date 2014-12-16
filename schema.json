@@ -1,6 +1,6 @@
 {
 	"$schema":"",
-	"title":"ParkenDD JSon API",
+	"title":"parkplaetzeDD json schema",
 	"description":"JSon required by ParkenDD app to show parking lots",
 	"type":"array",
 	"items":{
