@@ -50,6 +50,7 @@ class parking_lots_dd
 
 	private static function extract_html2raw( $html )
 	{	
+		include("geo.php");
 		$table = array();
 		$ix = count($html);
 		while($i <= $ix)
@@ -73,8 +74,9 @@ class parking_lots_dd
 				$i++;
 				$i++;
 				$free = trim( strip_tags( $html[$i] ) );
-				
-				$table['lots'][] = array( 'name'=>$name, 'count'=>$count, 'free'=>$free, 'state'=>$state );
+				$llat = $lat[$name];
+				$llon = $lon[$name];				
+				$table['lots'][] = array( 'name'=>$name, 'count'=>$count, 'free'=>$free, 'state'=>$state, 'lat'=>$llat, 'lon'=>$llon );
 			}
 			
 			
